@@ -48,17 +48,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Jika sign up berhasil, redirect kembali ke halaman index.php
         header("Location: dashboard_user.php");
         exit();
-    } else {
-        // Jika terjadi error, tampilkan pesan error
     }
-
+}
     // tambah data customer
     if (isset($_POST["add-customer"])) {
         $nm_cust = $_POST["nm_cust"];
         $no_Telp = $_POST["no_Telp"];
         $jk = $_POST["jk"];
-        $alamat = $_POST["alamat"];   
-
+        $alamat = $_POST["alamat"];
+        mysqli_query($koneksi, "INSERT INTO customer VALUES(null, '$nm_cust', '$no_Telp', '$jk', '$alamat')");
+        header("location: dashboard_user.php");
+    }   
+        
     if (isset($_GET['id_cust'])) {
         $id_cust = $_GET['id_cust'];
         mysqli_query($koneksi, "DELETE FROM customer where id_cust = '$id_cust'");            
@@ -73,22 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $alamat = $_POST['alamat'];
         $koneksi->query ("UPDATE customer SET id_cust='$id_cust', nm_cust='$nm_cust', no_Telp='$no_Telp', jk='$jk', alamat='$alamat' where id_cust='$id_cust'");
         header("location:dashboard_user.php");
-        }     
+        }
 
-        // Lakukan validasi data jika diperlukan
-
-        // Jalankan parameterized query untuk memasukkan data sign up ke dalam database
-        mysqli_query($koneksi, "INSERT INTO customer VALUES(null, '$nm_cust', '$no_Telp', '$jk', '$alamat')");
-
-        // Jika sign up berhasil, redirect kembali ke halaman index.php
-        header("Location: dashboard_user.php");
-       exit();
-    } else {
-        // Jika terjadi error, tampilkan pesan error
-    }
-
-    
-}
 
 
 
